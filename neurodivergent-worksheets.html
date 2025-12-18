@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurodivergent Resource Hub - Worksheets</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.4;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 3px solid #333;
+            padding: 15px 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container h1 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: #0066cc;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #0066cc;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .nav-links a:hover {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .content-wrapper {
+            margin-top: 120px;
+        }
+        
+        .worksheet {
+            background: white;
+            max-width: 850px;
+            margin: 20px auto;
+            padding: 40px;
+            border: 2px solid #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        .worksheet h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .worksheet-subtitle {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        /* Dopamine Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .menu-section {
+            border: 2px solid #333;
+            padding: 15px;
+            min-height: 200px;
+        }
+        
+        .menu-section h3 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .menu-section p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .menu-section textarea {
+            width: 100%;
+            height: 120px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .specials-box {
+            grid-column: span 2;
+        }
+        
+        /* Daily Planner */
+        .planner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .must-do-box {
+            border: 3px solid #000;
+            padding: 15px;
+        }
+        
+        .must-do-box h3 {
+            margin-bottom: 10px;
+        }
+        
+        .must-do-item {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .must-do-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .must-do-item input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        
+        .brain-dump-box {
+            border: 2px solid #666;
+            padding: 15px;
+            min-height: 150px;
+        }
+        
+        .brain-dump-box textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px dashed #999;
+            padding: 8px;
+            font-family: inherit;
+        }
+        
+        .time-block-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 0;
+            margin: 20px 0;
+            border: 2px solid #333;
+        }
+        
+        .time-slot {
+            display: contents;
+        }
+        
+        .time-label {
+            border-right: 2px solid #333;
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            font-weight: bold;
+        }
+        
+        .time-content {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            min-height: 50px;
+        }
+        
+        .buffer-row {
+            background: #ffe6e6;
+        }
+        
+        .body-check {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 2px solid #666;
+        }
+        
+        .body-check-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .body-check-item input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        
+        /* Emotion-Sensation Wheel */
+        .wheel-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .wheel-svg {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .wheel-legend {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .legend-item {
+            padding: 10px;
+            border: 2px solid #333;
+        }
+        
+        /* Meltdown Plan */
+        .meltdown-section {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .meltdown-section h3 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .checkbox-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Spoon Tracker */
+        .spoon-container {
+            margin: 20px 0;
+        }
+        
+        .spoon-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 2px solid #333;
+        }
+        
+        .spoon-icon {
+            font-size: 2em;
+        }
+        
+        .task-tracker {
+            margin: 20px 0;
+        }
+        
+        .task-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin: 5px 0;
+        }
+        
+        .task-row input {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+        
+        .task-row-header {
+            font-weight: bold;
+            background: #333;
+            color: white;
+            padding: 10px;
+        }
+        
+        /* Sensory Diet */
+        .sensory-timeline {
+            margin: 20px 0;
+        }
+        
+        .sensory-slot {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .sensory-slot h4 {
+            margin-bottom: 10px;
+        }
+        
+        .sensory-icons {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .sensory-icon-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Health Passport */
+        .passport-section {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .passport-critical {
+            background: #ffcccc;
+            border: 3px solid #cc0000;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        .traffic-light {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .traffic-light-item {
+            padding: 15px;
+            border: 2px solid #333;
+            text-align: center;
+        }
+        
+        .red { background: #ffcccc; }
+        .yellow { background: #ffffcc; }
+        .green { background: #ccffcc; }
+        
+        /* Task Initiation */
+        .checklist-vertical {
+            border: 2px solid #333;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 3px;
+        }
+        
+        /* Communication Pad */
+        .comm-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .comm-section {
+            border: 2px solid #333;
+            padding: 15px;
+        }
+        
+        /* Accommodation Request */
+        .form-field {
+            margin: 20px 0;
+        }
+        
+        .form-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .form-field input[type="text"],
+        .form-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #333;
+            font-family: inherit;
+            font-size: 1em;
+        }
+        
+        .form-field textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        /* Body Doubling */
+        .contract-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .contract-section {
+            border: 2px solid #333;
+            padding: 15px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .nav-container {
+                display: none;
+            }
+            
+            .content-wrapper {
+                margin-top: 0;
+            }
+            
+            .worksheet {
+                max-width: 100%;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            
+            input, textarea {
+                border: 1px solid #333 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <h1>Neurodivergent Resource Hub - Worksheet Collection</h1>
+        <div class="nav-links">
+            <a href="#dopamine">Dopamine Menu</a>
+            <a href="#planner">Daily Planner</a>
+            <a href="#emotion">Emotion Wheel</a>
+            <a href="#meltdown">Meltdown Plan</a>
+            <a href="#spoons">Spoon Tracker</a>
+            <a href="#sensory">Sensory Diet</a>
+            <a href="#task">Task Initiation</a>
+            <a href="#passport">Health Passport</a>
+            <a href="#communication">Communication Pad</a>
+            <a href="#accommodation">Accommodation Request</a>
+        </div>
+    </div>
+    
+    <div class="content-wrapper">
+        <!-- 1. DOPAMINE MENU -->
+        <div class="worksheet" id="dopamine">
+            <h2>🍽️ Build Your Own Dopamine Menu</h2>
+            <p class="worksheet-subtitle">A restaurant-style menu of activities that provide different types of stimulation for your Interest-Based Nervous System</p>
+            
+            <div class="menu-grid">
+                <div class="menu-section">
+                    <h3>🥖 Appetizers (Starters)</h3>
+                    <p>Quick, 5-minute activities to get moving. Low effort, immediate dopamine hit.</p>
+                    <textarea placeholder="Examples: Pet the dog, stretch, make coffee, doodle, dance to one song, look out window..."></textarea>
+                </div>
+                
+                <div class="menu-section">
+                    <h3>🍔 Entrees (Mains)</h3>
+                    <p>Deep engagement activities that trigger flow state. These restore your battery.</p>
+                    <textarea placeholder="Examples: Build something, code, paint, hike, read a novel, extensive cooking project..."></textarea>
+                </div>
+                
+                <div class="menu-section">
+                    <h3>🍟 Sides</h3>
+                    <p>Activities to pair with boring tasks (stimulation stacking). Makes mandatory tasks bearable.</p>
+                    <textarea placeholder="Examples: Podcasts while cleaning, fidget during meetings, music while working, body doubling..."></textarea>
+                </div>
+                
+                <div class="menu-section">
+                    <h3>🍰 Desserts</h3>
+                    <p>Easy dopamine treats. Use sparingly. High reward, low effort, consumptive.</p>
+                    <textarea placeholder="Examples: Social media scrolling, video games, sugary snacks, reality TV, YouTube rabbit holes..."></textarea>
+                </div>
+                
+                <div class="menu-section specials-box">
+                    <h3>⭐ Specials (Limited Time!)</h3>
+                    <p>Novel, high-effort rewards. Non-routine events that provide something to anticipate.</p>
+                    <textarea placeholder="Examples: Concerts, vacations, new hobby supplies, day trips, special events, trying new restaurants..."></textarea>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; padding: 15px; background: #ffffcc; border: 2px solid #333;"><strong>How to Use:</strong> When stuck or understimulated, scan your menu. Match your current energy level to the category. Can't decide on a Main? Start with an Appetizer. Feeling burnt out? Go straight to a Side to make obligations tolerable.</p>
+        </div>
+
+        <!-- 2. NEURODIVERGENT DAILY PLANNER -->
+        <div class="worksheet" id="planner">
+            <h2>📅 Neurodivergent Daily Planner</h2>
+            <p class="worksheet-subtitle">Date: _________________ Energy Level Today: ⚫⚫⚫⚫⚫ (circle spoons available)</p>
+            
+            <div class="planner-grid">
+                <div class="must-do-box">
+                    <h3>Must Do (Max 3)</h3>
+                    <p style="font-size: 0.9em; color: #666;">Only truly essential tasks. If it can wait, it's not a "Must Do."</p>
+                    <div class="must-do-item">
+                        <input type="checkbox">
+                        <input type="text" placeholder="Priority #1">
+                    </div>
+                    <div class="must-do-item">
+                        <input type="checkbox">
+                        <input type="text" placeholder="Priority #2">
+                    </div>
+                    <div class="must-do-item">
+                        <input type="checkbox">
+                        <input type="text" placeholder="Priority #3">
+                    </div>
+                </div>
+                
+                <div class="brain-dump-box">
+                    <h3>Brain Dump</h3>
+                    <p style="font-size: 0.9em; color: #666;">Everything swirling in your head. Don't filter, just write.</p>
+                    <textarea placeholder="Get it all out..."></textarea>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 20px;">Time Block Schedule</h3>
+            <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Gray rows = buffer/transition time. Don't schedule over these.</p>
+            <div class="time-block-grid">
+                <div class="time-slot">
+                    <div class="time-label">8:00 AM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot buffer-row">
+                    <div class="time-label">9:00 AM</div>
+                    <div class="time-content" style="background: #ffe6e6;"><em>Buffer</em></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">10:00 AM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">11:00 AM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot buffer-row">
+                    <div class="time-label">12:00 PM</div>
+                    <div class="time-content" style="background: #ffe6e6;"><em>Buffer</em></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">1:00 PM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">2:00 PM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot buffer-row">
+                    <div class="time-label">3:00 PM</div>
+                    <div class="time-content" style="background: #ffe6e6;"><em>Buffer</em></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">4:00 PM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">5:00 PM</div>
+                    <div class="time-content"></div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">6:00 PM</div>
+                    <div class="time-content"></div>
+                </div>
+            </div>
+            
+            <div class="body-check">
+                <div class="body-check-item">
+                    <label>Meds Taken</label>
+                    <div><input type="checkbox"> AM <input type="checkbox"> PM</div>
+                </div>
+                <div class="body-check-item">
+                    <label>Water (Glasses)</label>
+                    <div>☐☐☐☐☐☐☐☐</div>
+                </div>
+                <div class="body-check-item">
+                    <label>Meals</label>
+                    <div><input type="checkbox"> Breakfast<br><input type="checkbox"> Lunch<br><input type="checkbox"> Dinner</div>
+                </div>
+                <div class="body-check-item">
+                    <label>Mood Check</label>
+                    <div>
+                        Morning: ____<br>
+                        Afternoon: ____<br>
+                        Evening: ____
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; border: 2px solid #333; padding: 15px;">
+                <h3>Ta-Da! (What I Actually Did)</h3>
+                <textarea style="width: 100%; height: 80px; border: 1px solid #ccc; padding: 8px;" placeholder="List everything you accomplished, even if it wasn't on the original plan. Brushed teeth? That counts."></textarea>
+            </div>
+        </div>
+
+        <!-- 3. EMOTION-SENSATION WHEEL -->
+        <div class="worksheet" id="emotion">
+            <h2>🎯 Emotion-Sensation Wheel</h2>
+            <p class="worksheet-subtitle">When you can't name the feeling, start with your body. What physical sensations do you notice?</p>
+            
+            <div class="wheel-container">
+                <svg class="wheel-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Outer ring with physical sensations -->
+                    <circle cx="200" cy="200" r="180" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="200" cy="200" r="130" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="200" cy="200" r="80" fill="none" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Dividing lines -->
+                    <line x1="200" y1="20" x2="200" y2="380" stroke="#333" stroke-width="1"/>
+                    <line x1="20" y1="200" x2="380" y2="200" stroke="#333" stroke-width="1"/>
+                    <line x1="65" y1="65" x2="335" y2="335" stroke="#333" stroke-width="1"/>
+                    <line x1="65" y1="335" x2="335" y2="65" stroke="#333" stroke-width="1"/>
+                    
+                    <!-- Center core emotions -->
+                    <text x="200" y="185" text-anchor="middle" font-size="14" font-weight="bold" fill="#cc0000">MAD</text>
+                    <text x="200" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#0066cc">SAD</text>
+                    <text x="240" y="203" text-anchor="middle" font-size="14" font-weight="bold" fill="#ff9900">SCARED</text>
+                    <text x="160" y="203" text-anchor="middle" font-size="14" font-weight="bold" fill="#00cc00">JOYFUL</text>
+                    
+                    <!-- Middle ring examples -->
+                    <text x="200" y="110" text-anchor="middle" font-size="11" fill="#cc0000">Frustrated</text>
+                    <text x="290" y="200" text-anchor="middle" font-size="11" fill="#ff9900">Anxious</text>
+                    <text x="200" y="290" text-anchor="middle" font-size="11" fill="#0066cc">Lonely</text>
+                    <text x="110" y="200" text-anchor="middle" font-size="11" fill="#00cc00">Content</text>
+                    
+                    <!-- Outer ring physical sensations -->
+                    <text x="200" y="50" text-anchor="middle" font-size="10" fill="#666">Hot Face</text>
+                    <text x="320" y="100" text-anchor="middle" font-size="10" fill="#666">Tight Chest</text>
+                    <text x="350" y="200" text-anchor="middle" font-size="10" fill="#666">Heart Racing</text>
+                    <text x="320" y="300" text-anchor="middle" font-size="10" fill="#666">Heavy Limbs</text>
+                    <text x="200" y="350" text-anchor="middle" font-size="10" fill="#666">Tearful</text>
+                    <text x="80" y="300" text-anchor="middle" font-size="10" fill="#666">Relaxed</text>
+                    <text x="50" y="200" text-anchor="middle" font-size="10" fill="#666">Light</text>
+                    <text x="80" y="100" text-anchor="middle" font-size="10" fill="#666">Jaw Tight</text>
+                </svg>
+            </div>
+            
+            <div class="wheel-legend">
+                <div class="legend-item">
+                    <strong style="color: #cc0000;">MAD Family</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px;">Hot face, jaw clenched, fists tight, face flushed, teeth grinding, loud voice</p>
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #0066cc;">SAD Family</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px;">Heavy chest, tearful, tired, slow movement, low energy, throat tight</p>
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #ff9900;">SCARED Family</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px;">Heart racing, sweaty, shaky, nauseous, cold, can't breathe deeply</p>
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #00cc00;">JOYFUL Family</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px;">Light, smiling, warm, energized, relaxed, open posture</p>
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #9900cc;">POWERFUL Family</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px;">Chest out, tall, confident, strong, grounded, clear voice</p>
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #0099cc;">PEACEFUL Family</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px;">Soft breath, still, calm, slow heartbeat, relaxed face</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border: 2px solid #333;">
+                <h3>How to Use This Wheel</h3>
+                <p>Start from the outside (physical sensation) and work inward. "My chest is tight" → "That's in the Scared family" → "I'm anxious." This bypasses the need to immediately name an emotion when your brain won't cooperate. Your body already knows; you just need to translate.</p>
+            </div>
+        </div>
+
+        <!-- 4. MELTDOWN/SHUTDOWN RECOVERY PLAN -->
+        <div class="worksheet" id="meltdown">
+            <h2>🚨 Meltdown/Shutdown Recovery Plan</h2>
+            <p class="worksheet-subtitle">Fill this out when calm. Keep it accessible for when you're not.</p>
+            
+            <div class="meltdown-section" style="background: #ffffcc;">
+                <h3>⚠️ My "Rumble" Warning Signs</h3>
+                <p style="font-size: 0.9em; margin-bottom: 10px;">Early signs that I'm heading toward dysregulation:</p>
+                <div class="checkbox-list">
+                    <div class="checkbox-item"><input type="checkbox"> I stop talking</div>
+                    <div class="checkbox-item"><input type="checkbox"> I start pacing</div>
+                    <div class="checkbox-item"><input type="checkbox"> I get snappy/short</div>
+                    <div class="checkbox-item"><input type="checkbox"> I can't make decisions</div>
+                    <div class="checkbox-item"><input type="checkbox"> Everything is too loud</div>
+                    <div class="checkbox-item"><input type="checkbox"> I feel rage at small things</div>
+                    <div class="checkbox-item"><input type="checkbox"> I want to cry but can't</div>
+                    <div class="checkbox-item"><input type="checkbox"> I start stimming hard</div>
+                </div>
+                <textarea style="width: 100%; height: 60px; margin-top: 10px; border: 1px solid #333; padding: 8px;" placeholder="Other warning signs unique to me..."></textarea>
+            </div>
+            
+            <div class="meltdown-section" style="background: #ffcccc;">
+                <h3>❌ During Meltdown/Shutdown: DO NOT</h3>
+                <div class="checkbox-list">
+                    <div class="checkbox-item"><input type="checkbox"> Touch me</div>
+                    <div class="checkbox-item"><input type="checkbox"> Ask me questions</div>
+                    <div class="checkbox-item"><input type="checkbox"> Try to reason with me</div>
+                    <div class="checkbox-item"><input type="checkbox"> Tell me to calm down</div>
+                    <div class="checkbox-item"><input type="checkbox"> Raise your voice</div>
+                    <div class="checkbox-item"><input type="checkbox"> Make me make eye contact</div>
+                    <div class="checkbox-item"><input type="checkbox"> Force conversation</div>
+                    <div class="checkbox-item"><input type="checkbox"> Take it personally</div>
+                </div>
+                <textarea style="width: 100%; height: 60px; margin-top: 10px; border: 1px solid #333; padding: 8px;" placeholder="Other things that make it worse..."></textarea>
+            </div>
+            
+            <div class="meltdown-section" style="background: #ccffcc;">
+                <h3>✅ During Meltdown/Shutdown: PLEASE DO</h3>
+                <div class="checkbox-list">
+                    <div class="checkbox-item"><input type="checkbox"> Give me space</div>
+                    <div class="checkbox-item"><input type="checkbox"> Stay nearby (but quiet)</div>
+                    <div class="checkbox-item"><input type="checkbox"> Turn off lights</div>
+                    <div class="checkbox-item"><input type="checkbox"> Reduce noise</div>
+                    <div class="checkbox-item"><input type="checkbox"> Offer deep pressure</div>
+                    <div class="checkbox-item"><input type="checkbox"> Bring me water</div>
+                    <div class="checkbox-item"><input type="checkbox"> Give me my weighted blanket</div>
+                    <div class="checkbox-item"><input type="checkbox"> Put on familiar show/music</div>
+                </div>
+                <textarea style="width: 100%; height: 60px; margin-top: 10px; border: 1px solid #333; padding: 8px;" placeholder="Other things that help..."></textarea>
+            </div>
+            
+            <div class="meltdown-section">
+                <h3>🔄 Aftermath/Recovery Needs</h3>
+                <p style="font-size: 0.9em; margin-bottom: 10px;">What I need in the hours after a meltdown/shutdown:</p>
+                <textarea style="width: 100%; height: 100px; border: 1px solid #333; padding: 8px;" placeholder="Examples: Time alone, no talking, comfort food, cancel plans, sleep, specific comfort show, dark room, no apologies needed, reassurance that I'm not a bad person..."></textarea>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #e6f2ff; border: 2px solid #0066cc;">
+                <strong>For Support People:</strong> A meltdown/shutdown is involuntary. It is not manipulation. It is not about you. The person is not choosing to act this way. Your job is to keep them safe and reduce stimulus. They will return when their nervous system allows.
+            </div>
+        </div>
+
+        <!-- 5. SPOON THEORY ENERGY BUDGET -->
+        <div class="worksheet" id="spoons">
+            <h2>🥄 Spoon Theory Energy Budget</h2>
+            <p class="worksheet-subtitle">Date: _________________ How did you sleep? ⭐⭐⭐⭐⭐</p>
+            
+            <div class="spoon-container">
+                <h3>Starting Spoons Today</h3>
+                <p style="font-size: 0.9em; margin-bottom: 10px;">Color in or check off your available spoons. Most people start with 12-15 on a good day. Neurodivergent people may start with fewer, especially after poor sleep or high-stress days.</p>
+                <div class="spoon-icons">
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                    <span class="spoon-icon">🥄</span>
+                </div>
+            </div>
+            
+            <div class="task-tracker">
+                <h3>Task Cost Calculator</h3>
+                <p style="font-size: 0.9em; margin-bottom: 10px;">Not all tasks cost the same spoons. Executive function, sensory load, and social demands all add cost.</p>
+                <div class="task-row">
+                    <div class="task-row-header">Task</div>
+                    <div class="task-row-header">Spoon Cost</div>
+                    <div class="task-row-header">Remaining</div>
+                </div>
+                <div class="task-row">
+                    <input type="text" placeholder="Example: Shower">
+                    <input type="number" placeholder="3">
+                    <input type="number" placeholder="12" readonly>
+                </div>
+                <div class="task-row">
+                    <input type="text" placeholder="Task">
+                    <input type="number" placeholder="Cost">
+                    <input type="number" placeholder="" readonly>
+                </div>
+                <div class="task-row">
+                    <input type="text" placeholder="Task">
+                    <input type="number" placeholder="Cost">
+                    <input type="number" placeholder="" readonly>
+                </div>
+                <div class="task-row">
+                    <input type="text" placeholder="Task">
+                    <input type="number" placeholder="Cost">
+                    <input type="number" placeholder="" readonly>
+                </div>
+                <div class="task-row">
+                    <input type="text" placeholder="Task">
+                    <input type="number" placeholder="Cost">
+                    <input type="number" placeholder="" readonly>
+                </div>
+                <div class="task-row">
+                    <input type="text" placeholder="Task">
+                    <input type="number" placeholder="Cost">
+                    <input type="number" placeholder="" readonly>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #ffcccc; border: 2px solid #cc0000;">
+                <h3>⚠️ Borrowing from Tomorrow</h3>
+                <p>If your "Remaining" goes negative, you're borrowing spoons from tomorrow. This means tomorrow you'll start with fewer spoons. This is sometimes necessary (deadlines, emergencies) but doing this repeatedly leads to burnout.</p>
+                <div style="margin-top: 10px;">
+                    <strong>Spoons borrowed today:</strong> _______
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border: 2px solid #333;">
+                <h3>Typical Spoon Costs (Adjust for your experience)</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+                    <div><strong>Shower:</strong> 2-3 spoons (sensory transition)</div>
+                    <div><strong>Phone call:</strong> 2-4 spoons (social energy)</div>
+                    <div><strong>Grocery shopping:</strong> 3-5 spoons (decisions + sensory)</div>
+                    <div><strong>Doctor appointment:</strong> 4-6 spoons (medical + social)</div>
+                    <div><strong>Cooking meal:</strong> 2-4 spoons (executive sequencing)</div>
+                    <div><strong>Social event:</strong> 4-8 spoons (masking cost)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. SENSORY DIET PLANNER -->
+        <div class="worksheet" id="sensory">
+            <h2>👂👁️👃 Sensory Diet Planner</h2>
+            <p class="worksheet-subtitle">Schedule sensory "snacks" throughout your day to maintain nervous system regulation.</p>
+            
+            <div style="margin-bottom: 20px; padding: 15px; background: #e6f2ff; border: 2px solid #0066cc;">
+                <h3>Sensory Input Types</h3>
+                <div class="sensory-icons">
+                    <div class="sensory-icon-item">
+                        <strong>👄 ORAL:</strong> Mouth/eating sensations
+                    </div>
+                    <div class="sensory-icon-item">
+                        <strong>🏃 VESTIBULAR:</strong> Movement/balance
+                    </div>
+                    <div class="sensory-icon-item">
+                        <strong>✋ TACTILE:</strong> Touch/texture
+                    </div>
+                    <div class="sensory-icon-item">
+                        <strong>💪 PROPRIOCEPTIVE:</strong> Body position/heavy work
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sensory-timeline">
+                <div class="sensory-slot">
+                    <h4>☀️ Morning Sensory Routine (Alerting)</h4>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Goal: Wake up the nervous system. Increase arousal when under-stimulated.</p>
+                    <textarea style="width: 100%; height: 80px; border: 1px solid #ccc; padding: 8px;" placeholder="Examples: Cold water splash, crunchy breakfast (carrots, toast), upbeat music, jumping jacks, strong coffee/tea, textured clothing, stretching, bright lights..."></textarea>
+                </div>
+                
+                <div class="sensory-slot">
+                    <h4>🕐 Mid-Morning Check-in (Organizing)</h4>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Goal: Heavy work to organize sensory system. Good for maintaining focus.</p>
+                    <textarea style="width: 100%; height: 80px; border: 1px solid #ccc; padding: 8px;" placeholder="Examples: Wall pushes, carry something heavy, chair push-ups, fidget tools, chewing gum, resistance band, yoga poses..."></textarea>
+                </div>
+                
+                <div class="sensory-slot">
+                    <h4>🕑 Afternoon Energy Dip (Re-alerting or Calming)</h4>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Goal: Reassess. Are you under-stimulated (need alerting) or over-stimulated (need calming)?</p>
+                    <textarea style="width: 100%; height: 80px; border: 1px solid #ccc; padding: 8px;" placeholder="If under: Walk outside, cold drink, dance break. If over: Dim lights, deep breathing, reduce noise, weighted item..."></textarea>
+                </div>
+                
+                <div class="sensory-slot">
+                    <h4>🌙 Evening Wind-Down (Calming)</h4>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Goal: Reduce arousal for sleep. Calm the nervous system.</p>
+                    <textarea style="width: 100%; height: 80px; border: 1px solid #ccc; padding: 8px;" placeholder="Examples: Weighted blanket, slow music, dim lighting, warm bath/shower, gentle rocking, soft textures, calm scents (lavender), avoid screens..."></textarea>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border: 2px solid #333;">
+                <h3>My Personal Sensory Toolkit</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 10px;">
+                    <div>
+                        <strong>Alerting (Wake Me Up):</strong>
+                        <textarea style="width: 100%; height: 60px; margin-top: 5px; border: 1px solid #ccc; padding: 5px;"></textarea>
+                    </div>
+                    <div>
+                        <strong>Calming (Settle Me Down):</strong>
+                        <textarea style="width: 100%; height: 60px; margin-top: 5px; border: 1px solid #ccc; padding: 5px;"></textarea>
+                    </div>
+                    <div>
+                        <strong>Organizing (Focus Me):</strong>
+                        <textarea style="width: 100%; height: 60px; margin-top: 5px; border: 1px solid #ccc; padding: 5px;"></textarea>
+                    </div>
+                    <div>
+                        <strong>Emergency Reset:</strong>
+                        <textarea style="width: 100%; height: 60px; margin-top: 5px; border: 1px solid #ccc; padding: 5px;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. TASK INITIATION CHECKLIST -->
+        <div class="worksheet" id="task">
+            <h2>🚀 Task Initiation Checklist</h2>
+            <p class="worksheet-subtitle">Breaking through the "Wall of Awful" — when you know what to do but can't start</p>
+            
+            <div class="checklist-vertical">
+                <h3 style="text-align: center; margin-bottom: 20px;">The Sequence</h3>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>1. Physical State Check</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Am I hungry? Thirsty? Need the bathroom? These basic needs hijack executive function. Address them first.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>2. Sensory Environment Setup</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Noise level okay? Lighting comfortable? Temperature tolerable? Uncomfortable = resistance. Adjust before starting.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>3. Body Prep</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Put on shoes. Stand up. Do 3 wall pushes. Put on headphones. Change into "work clothes." Physical signals tell the brain it's time.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>4. Clear the Visual Field</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Clutter is cognitive load. Move 5 things off your desk. Close browser tabs. Clear one space to work in.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>5. Gather Materials</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Don't start until everything you need is within reach. Getting up to find a pen will break the fragile initiation momentum.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>6. The Laughably Small First Step</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Not "write essay." Instead: "Open document." Not "clean kitchen." Instead: "Pick up one fork." Momentum builds from motion, not from thinking.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>7. Set a Timer (Pomodoro)</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Commit to 15 minutes. Just 15. Tell yourself you can stop after. (You probably won't, but the time limit lowers the barrier.)</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div>
+                        <strong>8. Begin. Badly, If Necessary.</strong>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Start wrong. Start ugly. Start incomplete. Perfectionism is the enemy of initiation. Motion first, quality second.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #ffffcc; border: 2px solid #333;">
+                <strong>Remember:</strong> The Wall of Awful isn't about the task itself. It's about accumulated past failures, shame, and the brain's threat response. This checklist doesn't remove the wall. It gives you a ladder.
+            </div>
+        </div>
+
+        <!-- 8. NEURODIVERSITY HEALTH PASSPORT -->
+        <div class="worksheet" id="passport">
+            <h2>🏥 Neurodiversity Health Passport</h2>
+            <p class="worksheet-subtitle">A medical advocacy document. Show this to healthcare providers for safer, more effective care.</p>
+            
+            <div class="passport-critical">
+                ⚠️ I AM AUTISTIC / NEURODIVERGENT<br>
+                This affects my communication, pain expression, and sensory processing.<br>
+                Please read this document before examining or treating me.
+            </div>
+            
+            <div class="passport-section">
+                <h3>Communication Needs</h3>
+                <div style="margin: 10px 0;">
+                    <label><input type="checkbox"> I process information slowly. Please give me time to respond.</label><br>
+                    <label><input type="checkbox"> I may lose speech when stressed or in pain (selective mutism).</label><br>
+                    <label><input type="checkbox"> Please write down instructions. Verbal-only information doesn't stick.</label><br>
+                    <label><input type="checkbox"> I need direct, literal communication. Avoid implied meanings.</label><br>
+                    <label><input type="checkbox"> I do not make eye contact. This is not rudeness or dishonesty.</label>
+                </div>
+                <textarea style="width: 100%; height: 60px; margin-top: 10px; border: 1px solid #333; padding: 8px;" placeholder="Other communication notes..."></textarea>
+            </div>
+            
+            <div class="passport-section">
+                <h3>Pain Expression (Critical for Diagnosis)</h3>
+                <p style="font-size: 0.9em; margin-bottom: 10px;">Autistic people often have atypical pain responses. This does not mean we don't feel pain.</p>
+                <div style="margin: 10px 0;">
+                    <label><input type="checkbox"> I do not grimace or cry when in pain. My face may remain neutral.</label><br>
+                    <label><input type="checkbox"> My heart rate / blood pressure is a better indicator than my facial expression.</label><br>
+                    <label><input type="checkbox"> I may laugh or become very still when in severe pain (freeze response).</label><br>
+                    <label><input type="checkbox"> I have high pain tolerance and may not report pain until it's severe.</label><br>
+                    <label><input type="checkbox"> Pain scales don't work for me. Use functional assessment (Can you walk? Can you focus?).</label>
+                </div>
+            </div>
+            
+            <div class="passport-section">
+                <h3>Sensory Sensitivities (Traffic Light System)</h3>
+                <div class="traffic-light">
+                    <div class="traffic-light-item red">
+                        <strong>🔴 RED (Causes Pain/Distress)</strong>
+                        <textarea style="width: 100%; height: 80px; margin-top: 10px; border: 1px solid #333; padding: 5px;" placeholder="Examples: Bright fluorescent lights, fire alarms, strong perfumes, unexpected touch..."></textarea>
+                    </div>
+                    <div class="traffic-light-item yellow">
+                        <strong>🟡 YELLOW (Tolerable but Draining)</strong>
+                        <textarea style="width: 100%; height: 80px; margin-top: 10px; border: 1px solid #333; padding: 5px;" placeholder="Examples: Background noise, multiple people talking, waiting rooms, beeping machines..."></textarea>
+                    </div>
+                    <div class="traffic-light-item green">
+                        <strong>🟢 GREEN (Calming/Helpful)</strong>
+                        <textarea style="width: 100%; height: 80px; margin-top: 10px; border: 1px solid #333; padding: 5px;" placeholder="Examples: Dim lighting, weighted blanket, fidget tools, advance warning before touch..."></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="passport-section">
+                <h3>Signs I Am Overwhelmed (Please Watch For)</h3>
+                <div style="margin: 10px 0;">
+                    <label><input type="checkbox"> I stop making eye contact (more than usual)</label><br>
+                    <label><input type="checkbox"> I start rocking or stimming intensely</label><br>
+                    <label><input type="checkbox"> I become very quiet or go non-verbal</label><br>
+                    <label><input type="checkbox"> I ask repetitive questions (seeking reassurance)</label><br>
+                    <label><input type="checkbox"> I become "difficult" or refuse procedures (survival mode)</label>
+                </div>
+                <p style="margin-top: 10px; padding: 10px; background: #e6f2ff; border: 1px solid #0066cc;"><strong>If this happens:</strong> Stop. Reduce stimulation. Give me a minute. Do not push through; it will worsen outcomes.</p>
+            </div>
+            
+            <div class="passport-section">
+                <h3>Emergency Contact</h3>
+                <div class="form-field">
+                    <label>Name:</label>
+                    <input type="text">
+                </div>
+                <div class="form-field">
+                    <label>Phone:</label>
+                    <input type="text">
+                </div>
+                <div class="form-field">
+                    <label>Relationship:</label>
+                    <input type="text">
+                </div>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">This person understands my communication needs and can advocate if I become non-verbal.</p>
+            </div>
+        </div>
+
+        <!-- 9. CHECKBOX COMMUNICATION PAD -->
+        <div class="worksheet" id="communication">
+            <h2>💬 Non-Verbal Communication Pad</h2>
+            <p class="worksheet-subtitle">For when words don't work. Point, check, or circle.</p>
+            
+            <div style="padding: 15px; background: #ffffcc; border: 2px solid #333; margin-bottom: 20px;">
+                <strong>When to use this:</strong> Meltdowns, shutdowns, overwhelm, anxiety attacks, after difficult conversations, when masking has depleted your ability to form sentences.
+            </div>
+            
+            <div class="comm-grid">
+                <div class="comm-section">
+                    <h3>Right Now I Am:</h3>
+                    <div style="margin: 10px 0;">
+                        <label><input type="checkbox"> Overstimulated</label><br>
+                        <label><input type="checkbox"> Understimulated</label><br>
+                        <label><input type="checkbox"> Confused</label><br>
+                        <label><input type="checkbox"> Angry</label><br>
+                        <label><input type="checkbox"> Sad</label><br>
+                        <label><input type="checkbox"> Scared</label><br>
+                        <label><input type="checkbox"> In pain</label><br>
+                        <label><input type="checkbox"> Tired</label><br>
+                        <label><input type="checkbox"> Hungry</label><br>
+                        <label><input type="checkbox"> Don't know</label>
+                    </div>
+                </div>
+                
+                <div class="comm-section">
+                    <h3>What I Need:</h3>
+                    <div style="margin: 10px 0;">
+                        <label><input type="checkbox"> Space (go away)</label><br>
+                        <label><input type="checkbox"> Presence (stay close but silent)</label><br>
+                        <label><input type="checkbox"> A hug / deep pressure</label><br>
+                        <label><input type="checkbox"> Do NOT touch me</label><br>
+                        <label><input type="checkbox"> Food / water</label><br>
+                        <label><input type="checkbox"> To lie down</label><br>
+                        <label><input type="checkbox"> Lights off</label><br>
+                        <label><input type="checkbox"> Noise off</label><br>
+                        <label><input type="checkbox"> Help (but I can't explain yet)</label>
+                    </div>
+                </div>
+                
+                <div class="comm-section">
+                    <h3>About This Conversation:</h3>
+                    <div style="margin: 10px 0;">
+                        <label><input type="checkbox"> I'm not mad at you</label><br>
+                        <label><input type="checkbox"> I am mad at you</label><br>
+                        <label><input type="checkbox"> I need to stop talking now</label><br>
+                        <label><input type="checkbox"> I need you to stop talking</label><br>
+                        <label><input type="checkbox"> I'm confused but don't know how to say so</label><br>
+                        <label><input type="checkbox"> I need time to process</label><br>
+                        <label><input type="checkbox"> I'll be okay, I just need time</label><br>
+                        <label><input type="checkbox"> I'm in a shame spiral</label><br>
+                        <label><input type="checkbox"> I'm shutting down</label>
+                    </div>
+                </div>
+                
+                <div class="comm-section">
+                    <h3>What Would Help Right Now:</h3>
+                    <div style="margin: 10px 0;">
+                        <label><input type="checkbox"> Body doubling (just be here)</label><br>
+                        <label><input type="checkbox"> Talk to me about something else</label><br>
+                        <label><input type="checkbox"> Put on my comfort show</label><br>
+                        <label><input type="checkbox"> Bring me my stim toy / comfort object</label><br>
+                        <label><input type="checkbox"> Cancel plans</label><br>
+                        <label><input type="checkbox"> Write it down for me</label><br>
+                        <label><input type="checkbox"> Tell me it's okay to be like this</label><br>
+                        <label><input type="checkbox"> Nothing. Just time.</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border: 2px solid #333;">
+                <h3>For Support People</h3>
+                <p>If someone hands you this card, they are communicating the best they can in this moment. Do not ask them to "use their words." Do not require explanation. Trust the checkboxes. Act on them. Ask yes/no questions only, if you must ask anything at all.</p>
+            </div>
+        </div>
+
+        <!-- 10. WORKPLACE ACCOMMODATION REQUEST -->
+        <div class="worksheet" id="accommodation">
+            <h2>💼 Workplace Accommodation Request Builder</h2>
+            <p class="worksheet-subtitle">A structured template for requesting neurodivergent accommodations under the ADA</p>
+            
+            <div style="padding: 15px; background: #e6f2ff; border: 2px solid #0066cc; margin-bottom: 20px;">
+                <strong>Legal Framework:</strong> Under the Americans with Disabilities Act (ADA), employers must provide "reasonable accommodations" for documented disabilities, including ADHD, Autism, and related conditions. A proper request establishes a "nexus" (clear link) between your disability and the specific accommodation.
+            </div>
+            
+            <div class="form-field">
+                <label>Date:</label>
+                <input type="text">
+            </div>
+            
+            <div class="form-field">
+                <label>To: [Supervisor/HR Name]</label>
+                <input type="text">
+            </div>
+            
+            <div class="form-field">
+                <label>Subject Line:</label>
+                <input type="text" value="Request for Workplace Accommodation Under ADA" readonly>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <h3>Body of Request</h3>
+                
+                <div class="form-field">
+                    <label>1. State Your Condition (General terms okay):</label>
+                    <textarea placeholder="Example: 'I have a neurodevelopmental condition that affects executive function and sensory processing.'"></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">You do NOT need to disclose your specific diagnosis. General functional categories are sufficient.</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>2. Describe the Limitation (Not the diagnosis, the impact):</label>
+                    <textarea placeholder="Example: 'This condition creates difficulty with [sustained attention in high-noise environments / initiating tasks without external structure / processing verbal instructions without written backup].'"></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Focus on how it affects your ability to do your job, not medical details.</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>3. Request Specific Accommodation (Be concrete):</label>
+                    <textarea placeholder="Example: 'I am requesting [noise-canceling headphones / a written task list at the start of each day / permission to work from home 2 days per week / flexible start times within a 2-hour window].'"></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Name the exact accommodation. Vague requests are easier to deny.</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>4. Establish Nexus (Connect the dots):</label>
+                    <textarea placeholder="Example: 'This accommodation would enable me to [maintain focus on tasks / reduce sensory overload that impairs concentration / complete projects without the executive function cost of commuting].'"></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Show how the accommodation directly addresses the limitation.</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>5. Reference Supporting Resources (Optional but helpful):</label>
+                    <textarea placeholder="Example: 'The Job Accommodation Network (JAN.org) lists [your requested accommodation] as a commonly effective accommodation for individuals with conditions affecting [executive function/sensory processing/etc.].'"></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Citing JAN adds legitimacy and shows you've researched.</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>6. Offer to Provide Documentation (If needed):</label>
+                    <textarea placeholder="Example: 'I am happy to provide medical documentation from my healthcare provider if required to process this request.'" readonly></textarea>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 5px;">They may ask for it, but don't include it in the initial request unless you want to.</p>
+                </div>
+                
+                <div class="form-field">
+                    <label>7. Close Professionally:</label>
+                    <textarea placeholder="Example: 'I appreciate your consideration of this request and am happy to discuss implementation details at your convenience. Please let me know if you need any additional information.'" readonly></textarea>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #ffffcc; border: 2px solid #333;">
+                <h3>Common Neurodivergent Accommodations (From JAN.org)</h3>
+                <ul style="margin: 10px 0 10px 20px; line-height: 1.8;">
+                    <li>Noise-canceling headphones or private/quiet workspace</li>
+                    <li>Flexible scheduling (start/end times) or remote work options</li>
+                    <li>Written instructions for tasks (not just verbal)</li>
+                    <li>Task lists or checklists provided by supervisor</li>
+                    <li>Regular check-ins (but scheduled, not surprise)</li>
+                    <li>Modified break schedule (more frequent, shorter breaks)</li>
+                    <li>Permission to use fidget tools during meetings</li>
+                    <li>Reduction of fluorescent lighting (desk lamp instead)</li>
+                    <li>Advance notice for changes in routine or expectations</li>
+                    <li>Email communication preferred over phone calls</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #ffcccc; border: 2px solid #cc0000;">
+                <h3>⚠️ Important Notes</h3>
+                <p><strong>Reasonable ≠ Perfect:</strong> Accommodations must be "reasonable," meaning they don't create "undue hardship" for the employer. A request for "no deadlines ever" would likely be denied. A request for "2 extra days per deadline" is reasonable.</p>
+                <p style="margin-top: 10px;"><strong>Interactive Process:</strong> The employer may counter-offer or suggest alternatives. You don't have to accept them, but refusal must be based on why the alternative wouldn't address your limitation.</p>
+                <p style="margin-top: 10px;"><strong>Keep Records:</strong> Send this request via email or certified mail. Keep a copy. Document all responses. If the request is denied, you may need this for EEOC complaints or legal action.</p>
+            </div>
+        </div>
+
+        <!-- BONUS: Body Doubling Contract -->
+        <div class="worksheet" id="body-doubling">
+            <h2>👥 Body Doubling Session Contract</h2>
+            <p class="worksheet-subtitle">Formalizing body doubling prevents it from devolving into socialization</p>
+            
+            <div class="contract-grid">
+                <div class="contract-section">
+                    <h3>Person 1</h3>
+                    <div class="form-field">
+                        <label>Name:</label>
+                        <input type="text">
+                    </div>
+                    <div class="form-field">
+                        <label>My Goal for This Session:</label>
+                        <textarea style="height: 80px;"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label>Session Length:</label>
+                        <input type="text" placeholder="e.g., 50 minutes">
+                    </div>
+                </div>
+                
+                <div class="contract-section">
+                    <h3>Person 2</h3>
+                    <div class="form-field">
+                        <label>Name:</label>
+                        <input type="text">
+                    </div>
+                    <div class="form-field">
+                        <label>My Goal for This Session:</label>
+                        <textarea style="height: 80px;"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label>Break Activity (Optional):</label>
+                        <input type="text" placeholder="e.g., 5-min stretch every 25 mins">
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0; padding: 15px; border: 2px solid #333;">
+                <h3>Session Rules (Check agreed-upon rules):</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 10px 0;">
+                    <label><input type="checkbox"> Cameras ON</label>
+                    <label><input type="checkbox"> Cameras OFF</label>
+                    <label><input type="checkbox"> Mics MUTED (work in silence)</label>
+                    <label><input type="checkbox"> Mics ON (ambient noise okay)</label>
+                    <label><input type="checkbox"> Chat ON (for quick questions)</label>
+                    <label><input type="checkbox"> Chat OFF (no interruptions)</label>
+                    <label><input type="checkbox"> Check-in at halfway point</label>
+                    <label><input type="checkbox"> No check-ins (stay focused)</label>
+                    <label><input type="checkbox"> Pomodoro breaks (25 min work / 5 min break)</label>
+                    <label><input type="checkbox"> Continuous work (no breaks)</label>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border: 2px solid #333;">
+                <h3>End-of-Session Check-In</h3>
+                <p style="margin-bottom: 10px;">Did I accomplish my goal?</p>
+                <label><input type="checkbox"> Yes, fully</label><br>
+                <label><input type="checkbox"> Partially (still progress!)</label><br>
+                <label><input type="checkbox"> No, but I stayed on task</label><br>
+                <label><input type="checkbox"> No, and I got distracted</label>
+                <div class="form-field" style="margin-top: 15px;">
+                    <label>What worked well about this session?</label>
+                    <textarea style="height: 60px;"></textarea>
+                </div>
+                <div class="form-field">
+                    <label>What would I change next time?</label>
+                    <textarea style="height: 60px;"></textarea>
+                </div>
+            </div>
+            
+            <div style="padding: 15px; background: #e6f2ff; border: 2px solid #0066cc;">
+                <strong>Why This Works:</strong> Body doubling leverages the social-accountability circuit in the brain. You're not working together, you're working in parallel. The presence of another person anchors attention. The contract prevents the common failure mode of body doubling: "We meant to work but ended up talking for 2 hours."
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; padding: 40px; background: #333; color: white; margin-top: 40px;">
+        <p>Created based on neurodivergent community research and clinical frameworks</p>
+        <p style="margin-top: 10px;">Print, use, modify. These are tools, not rules.</p>
+    </div>
+</body>
+</html>
