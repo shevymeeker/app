@@ -12,12 +12,46 @@
     
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-        
-        /* Hide scrollbar for cleaner dashboard look */
+
+        /* --- 3D FLIP CSS --- */
+        .flip-container {
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        /* The class applied when flipped */
+        .flip-card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1rem; /* matches tailwind rounded-2xl roughly */
+        }
+
+        .flip-card-front {
+            /* Front styling handled by utility classes, but this ensures 3D pos */
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        /* Hide scrollbar */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
     </style>
 </head>
@@ -26,9 +60,9 @@
     <div id="root" class="w-full max-w-md h-full max-h-[600px]"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState } = React;
 
-        // Data extracted from the PDF
+        // Data Source
         const deck = [
             { id: 1, title: "Prioritizing Tasks", action: "Decide what needs to be done first.", tip: "Use a 'Must Do, Should Do, Could Do' list.", icon: "📋" },
             { id: 2, title: "Time Estimation", action: "Guess how long a task will take.", tip: "Compare your estimate to actual time after completing.", icon: "⏱️" },
@@ -86,63 +120,49 @@
         function App() {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [isFlipped, setIsFlipped] = useState(false);
-            const [animate, setAnimate] = useState(false);
+            const [isTransitioning, setIsTransitioning] = useState(false);
 
-            const handleNext = () => {
+            // Helper to transition cards
+            const transitionTo = (newIndex) => {
                 setIsFlipped(false);
-                setAnimate(true);
+                setIsTransitioning(true);
                 setTimeout(() => {
-                    setCurrentIndex((prev) => (prev + 1) % deck.length);
-                    setAnimate(false);
+                    setCurrentIndex(newIndex);
+                    setIsTransitioning(false);
                 }, 200);
             };
 
-            const handlePrev = () => {
-                setIsFlipped(false);
-                setAnimate(true);
-                setTimeout(() => {
-                    setCurrentIndex((prev) => (prev - 1 + deck.length) % deck.length);
-                    setAnimate(false);
-                }, 200);
-            };
-
-            const handleRandom = () => {
-                setIsFlipped(false);
-                setAnimate(true);
-                setTimeout(() => {
-                    const random = Math.floor(Math.random() * deck.length);
-                    setCurrentIndex(random);
-                    setAnimate(false);
-                }, 200);
-            };
+            const handleNext = () => transitionTo((currentIndex + 1) % deck.length);
+            const handlePrev = () => transitionTo((currentIndex - 1 + deck.length) % deck.length);
+            const handleRandom = () => transitionTo(Math.floor(Math.random() * deck.length));
 
             const currentCard = deck[currentIndex];
 
             return (
                 <div className="flex flex-col items-center w-full h-full bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
                     
-                    {/* Header / Stats */}
+                    {/* Header */}
                     <div className="w-full px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                         <span className="text-xs font-semibold text-gray-400 tracking-wider uppercase">Executive Function</span>
                         <span className="text-xs font-mono text-gray-400">{currentIndex + 1} / {deck.length}</span>
                     </div>
 
-                    {/* Card Container */}
-                    <div className="flex-1 w-full p-6 flex items-center justify-center perspective-1000">
+                    {/* Card Stage */}
+                    <div className="flex-1 w-full p-6 flex items-center justify-center flip-container">
                         <div 
-                            className={`relative w-full h-64 md:h-72 cursor-pointer transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''} ${animate ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+                            className={`flip-card-inner cursor-pointer ${isFlipped ? 'flipped' : ''} ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
                             onClick={() => setIsFlipped(!isFlipped)}
                         >
                             
-                            {/* Front of Card */}
-                            <div className="absolute w-full h-full bg-slate-800 text-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg backface-hidden border border-slate-700">
+                            {/* FRONT */}
+                            <div className="flip-card-front bg-slate-800 text-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg border border-slate-700">
                                 <div className="text-6xl mb-6">{currentCard.icon}</div>
                                 <h2 className="text-2xl font-bold text-center tracking-tight">{currentCard.title}</h2>
                                 <p className="mt-4 text-slate-400 text-xs uppercase tracking-widest font-semibold">Click to Reveal</p>
                             </div>
 
-                            {/* Back of Card */}
-                            <div className="absolute w-full h-full bg-white text-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg backface-hidden rotate-y-180 border border-gray-200">
+                            {/* BACK */}
+                            <div className="flip-card-back bg-white text-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg border border-gray-200">
                                 <div className="text-center">
                                     <h3 className="text-lg font-semibold text-slate-900 mb-2">{currentCard.action}</h3>
                                     <div className="w-12 h-1 bg-blue-500 rounded-full mx-auto my-4"></div>
@@ -155,24 +175,9 @@
 
                     {/* Controls */}
                     <div className="w-full p-4 bg-gray-50 border-t border-gray-100 grid grid-cols-3 gap-3">
-                        <button 
-                            onClick={handlePrev}
-                            className="py-3 px-4 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium text-sm transition-colors shadow-sm"
-                        >
-                            Previous
-                        </button>
-                        <button 
-                            onClick={handleRandom}
-                            className="py-3 px-4 rounded-lg bg-slate-800 text-white hover:bg-slate-900 font-medium text-sm transition-colors shadow-md"
-                        >
-                            Random
-                        </button>
-                        <button 
-                            onClick={handleNext}
-                            className="py-3 px-4 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium text-sm transition-colors shadow-sm"
-                        >
-                            Next
-                        </button>
+                        <button onClick={handlePrev} className="py-3 px-4 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 font-medium text-sm shadow-sm">Previous</button>
+                        <button onClick={handleRandom} className="py-3 px-4 rounded-lg bg-slate-800 text-white hover:bg-slate-900 font-medium text-sm shadow-md">Random</button>
+                        <button onClick={handleNext} className="py-3 px-4 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 font-medium text-sm shadow-sm">Next</button>
                     </div>
 
                 </div>
