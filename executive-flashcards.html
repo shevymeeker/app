@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Function Deck</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        /* Hide scrollbar for cleaner dashboard look */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+    </style>
+</head>
+<body class="h-screen w-full flex items-center justify-center p-4">
+
+    <div id="root" class="w-full max-w-md h-full max-h-[600px]"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Data extracted from the PDF
+        const deck = [
+            { id: 1, title: "Prioritizing Tasks", action: "Decide what needs to be done first.", tip: "Use a 'Must Do, Should Do, Could Do' list.", icon: "📋" },
+            { id: 2, title: "Time Estimation", action: "Guess how long a task will take.", tip: "Compare your estimate to actual time after completing.", icon: "⏱️" },
+            { id: 3, title: "Task Initiation", action: "Start a task without procrastinating.", tip: "Set a 5-minute timer and just begin!", icon: "🚀" },
+            { id: 4, title: "Planning Ahead", action: "Think through the steps before starting.", tip: "Use checklists or flow charts.", icon: "🗺️" },
+            { id: 5, title: "Self-Monitoring", action: "Notice your own progress and behavior.", tip: "Ask yourself, 'How am I doing?'", icon: "🧐" },
+            { id: 6, title: "Emotional Regulation", action: "Stay calm and manage strong feelings.", tip: "Try deep breathing or a grounding exercise.", icon: "😌" },
+            { id: 7, title: "Organization", action: "Keep your things and thoughts in order.", tip: "Assign everything a home.", icon: "🗂️" },
+            { id: 8, title: "Flexible Thinking", action: "Shift your thoughts when things change.", tip: "Practice saying, 'Let me try a different way.'", icon: "🤸" },
+            { id: 9, title: "Goal Setting", action: "Make short-term and long-term goals.", tip: "Use the SMART goal formula.", icon: "🎯" },
+            { id: 10, title: "Visualizing Steps", action: "Picture how to complete something.", tip: "Draw or describe the process aloud.", icon: "👁️" },
+            { id: 11, title: "Breaking Tasks Down", action: "Divide big projects into small steps.", tip: "Write out each mini-step.", icon: "🧱" },
+            { id: 12, title: "Using Routines", action: "Repeat helpful actions daily.", tip: "Morning and evening routines boost consistency.", icon: "🔄" },
+            { id: 13, title: "Managing Distractions", action: "Ignore interruptions and stay focused.", tip: "Use noise-canceling headphones or apps like 'Forest'.", icon: "🔇" },
+            { id: 14, title: "Staying on Track", action: "Refocus when you drift off task.", tip: "Use a visual timer to check in regularly.", icon: "🧭" },
+            { id: 15, title: "Checking Work", action: "Review for accuracy and completeness.", tip: "Build in 5 minutes for double-checking.", icon: "✅" },
+            { id: 16, title: "Coping with Frustration", action: "Handle things when they don't go your way.", tip: "Use a coping toolbox (fidgets, calm music, etc.).", icon: "😤" },
+            { id: 17, title: "Asking for Help", action: "Know when and how to reach out.", tip: "Practice sentence starters like 'Can you help me with...'", icon: "🙋" },
+            { id: 18, title: "Keeping a Calendar", action: "Track time and appointments.", tip: "Color code different types of tasks.", icon: "📅" },
+            { id: 19, title: "Creating a To-Do List", action: "Jot down tasks for the day or week.", tip: "Keep it short—5 items max.", icon: "📝" },
+            { id: 20, title: "Delaying Gratification", action: "Wait for rewards or fun until work is done.", tip: "Use the 'If-Then' strategy: 'If I finish, then I can...'", icon: "⏳" },
+            { id: 21, title: "Reflection", action: "Think about what worked and what didn't.", tip: "Journal 1-2 sentences daily.", icon: "🪞" },
+            { id: 22, title: "Estimating Priorities", action: "Sort by importance and urgency.", tip: "Try the Eisenhower Matrix.", icon: "⚖️" },
+            { id: 23, title: "Tracking Progress", action: "Keep tabs on how much is done.", tip: "Use progress bars or checkboxes.", icon: "📊" },
+            { id: 24, title: "Managing Time Blocks", action: "Work in focused chunks.", tip: "Try Pomodoro: 25 mins on, 5 mins off.", icon: "🍅" },
+            { id: 25, title: "Preparing for Transitions", action: "Shift smoothly between activities.", tip: "Use countdowns or visual cues.", icon: "🚦" },
+            { id: 26, title: "Adapting to Change", action: "Handle unexpected shifts calmly.", tip: "Remind yourself: 'This is temporary.'", icon: "🌊" },
+            { id: 27, title: "Working Memory", action: "Hold info in your head while using it.", tip: "Repeat instructions out loud or write them down.", icon: "🧠" },
+            { id: 28, title: "Remembering Directions", action: "Follow multi-step instructions.", tip: "Use acronyms or mnemonic tricks.", icon: "🗺️" },
+            { id: 29, title: "Building Habits", action: "Turn helpful tasks into automatic behaviors.", tip: "Start with just one habit at a time.", icon: "🏗️" },
+            { id: 30, title: "Finishing What You Start", action: "Complete tasks you begin.", tip: "Use a 'Done' checklist to track completion.", icon: "🏁" },
+            { id: 31, title: "Self-Motivation", action: "Get things done without rewards.", tip: "Link tasks to personal values or goals.", icon: "🔥" },
+            { id: 32, title: "Noticing Mistakes", action: "Recognize when something's off.", tip: "Pause and review your work out loud.", icon: "🔍" },
+            { id: 33, title: "Problem Solving", action: "Come up with creative solutions.", tip: "Try the 'What else can I do?' method.", icon: "🧩" },
+            { id: 34, title: "Thinking Ahead", action: "Predict possible outcomes.", tip: "Play out the 'If I do this, then...' scenario.", icon: "🔮" },
+            { id: 35, title: "Evaluating Outcomes", action: "Check if your choice worked well.", tip: "Rate your solution 1-10.", icon: "📉" },
+            { id: 36, title: "Developing Independence", action: "Complete tasks without being reminded.", tip: "Use reminders until the task becomes a habit.", icon: "🦅" },
+            { id: 37, title: "Prioritizing Health", action: "Balance responsibilities with wellness.", tip: "Schedule sleep, movement, and meals like appointments.", icon: "🍎" },
+            { id: 38, title: "Reducing Overwhelm", action: "Simplify when feeling stuck.", tip: "Use 'just do the next step' thinking.", icon: "🧘" },
+            { id: 39, title: "Building Confidence", action: "Believe in your ability to succeed.", tip: "Keep a list of tasks you've accomplished.", icon: "🏆" },
+            { id: 40, title: "Handling Boredom", action: "Stay productive during low-interest tasks.", tip: "Add music or a timer to make it more engaging.", icon: "🥱" },
+            { id: 41, title: "Mindful Focus", action: "Tune in fully to one task.", tip: "Do one thing at a time—no multitasking.", icon: "🎯" },
+            { id: 42, title: "Rewarding Effort", action: "Celebrate completing hard work.", tip: "Use a reward chart or sticker system.", icon: "🎁" },
+            { id: 43, title: "Decision Making", action: "Choose between multiple options.", tip: "Use pros and cons lists.", icon: "🤔" },
+            { id: 44, title: "Scheduling Breaks", action: "Rest to reset focus.", tip: "Insert short breaks after every 30-45 minutes.", icon: "☕" },
+            { id: 45, title: "Dealing with Criticism", action: "Accept feedback constructively.", tip: "Listen fully, then reflect before responding.", icon: "🛡️" },
+            { id: 46, title: "Mental Flexibility", action: "Accept new rules or routines.", tip: "Practice adjusting plans without stress.", icon: "🎋" },
+            { id: 47, title: "Managing Deadlines", action: "Meet due dates and plan ahead.", tip: "Reverse engineer your deadline.", icon: "🗓️" },
+            { id: 48, title: "Clarifying Instructions", action: "Make sure you understand the task.", tip: "Repeat the instructions back.", icon: "🗣️" },
+            { id: 49, title: "Managing Digital Distractions", action: "Stay off your phone or media.", tip: "Use screen limit tools or grayscale mode.", icon: "📱" },
+            { id: 50, title: "Organizing Thoughts", action: "Express ideas clearly.", tip: "Use graphic organizers or outlines.", icon: "💭" },
+            { id: 51, title: "Strengthening Focus", action: "Train your brain to concentrate longer.", tip: "Use focus games or brain teasers as warm-ups.", icon: "🏋️" }
+        ];
+
+        function App() {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [isFlipped, setIsFlipped] = useState(false);
+            const [animate, setAnimate] = useState(false);
+
+            const handleNext = () => {
+                setIsFlipped(false);
+                setAnimate(true);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => (prev + 1) % deck.length);
+                    setAnimate(false);
+                }, 200);
+            };
+
+            const handlePrev = () => {
+                setIsFlipped(false);
+                setAnimate(true);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => (prev - 1 + deck.length) % deck.length);
+                    setAnimate(false);
+                }, 200);
+            };
+
+            const handleRandom = () => {
+                setIsFlipped(false);
+                setAnimate(true);
+                setTimeout(() => {
+                    const random = Math.floor(Math.random() * deck.length);
+                    setCurrentIndex(random);
+                    setAnimate(false);
+                }, 200);
+            };
+
+            const currentCard = deck[currentIndex];
+
+            return (
+                <div className="flex flex-col items-center w-full h-full bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
+                    
+                    {/* Header / Stats */}
+                    <div className="w-full px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                        <span className="text-xs font-semibold text-gray-400 tracking-wider uppercase">Executive Function</span>
+                        <span className="text-xs font-mono text-gray-400">{currentIndex + 1} / {deck.length}</span>
+                    </div>
+
+                    {/* Card Container */}
+                    <div className="flex-1 w-full p-6 flex items-center justify-center perspective-1000">
+                        <div 
+                            className={`relative w-full h-64 md:h-72 cursor-pointer transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''} ${animate ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+                            onClick={() => setIsFlipped(!isFlipped)}
+                        >
+                            
+                            {/* Front of Card */}
+                            <div className="absolute w-full h-full bg-slate-800 text-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg backface-hidden border border-slate-700">
+                                <div className="text-6xl mb-6">{currentCard.icon}</div>
+                                <h2 className="text-2xl font-bold text-center tracking-tight">{currentCard.title}</h2>
+                                <p className="mt-4 text-slate-400 text-xs uppercase tracking-widest font-semibold">Click to Reveal</p>
+                            </div>
+
+                            {/* Back of Card */}
+                            <div className="absolute w-full h-full bg-white text-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg backface-hidden rotate-y-180 border border-gray-200">
+                                <div className="text-center">
+                                    <h3 className="text-lg font-semibold text-slate-900 mb-2">{currentCard.action}</h3>
+                                    <div className="w-12 h-1 bg-blue-500 rounded-full mx-auto my-4"></div>
+                                    <p className="text-slate-600 font-medium italic">"{currentCard.tip}"</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="w-full p-4 bg-gray-50 border-t border-gray-100 grid grid-cols-3 gap-3">
+                        <button 
+                            onClick={handlePrev}
+                            className="py-3 px-4 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium text-sm transition-colors shadow-sm"
+                        >
+                            Previous
+                        </button>
+                        <button 
+                            onClick={handleRandom}
+                            className="py-3 px-4 rounded-lg bg-slate-800 text-white hover:bg-slate-900 font-medium text-sm transition-colors shadow-md"
+                        >
+                            Random
+                        </button>
+                        <button 
+                            onClick={handleNext}
+                            className="py-3 px-4 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium text-sm transition-colors shadow-sm"
+                        >
+                            Next
+                        </button>
+                    </div>
+
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
